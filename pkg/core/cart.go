@@ -15,16 +15,19 @@ type FeeCalculator interface {
 	Calculate()
 }
 
-func (t *Cart) AddOrderItem(item *Variations, quantity float64) {
-	t.order.SaleItems[item] = quantity
+func (t *Cart) AddOrderItem(item Modelable, quantity float64) {
+	i := item.(*Variations)
+	t.order.SaleItems[i] = quantity
 }
 
-func (t *Cart) RemoveOrderItem(item *Variations) {
-	delete(t.order.SaleItems, item)
+func (t *Cart) RemoveOrderItem(item Modelable) {
+	i := item.(*Variations)
+	delete(t.order.SaleItems, i)
 }
 
-func (t *Cart) EditOrderItem(item *Variations) {
-
+func (t *Cart) EditOrderItem(item Modelable, quantity float64) {
+	i := item.(*Variations)
+	t.order.SaleItems[i] = quantity
 }
 
 func NewCart(order *Order) *Cart {
